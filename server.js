@@ -11,7 +11,7 @@ app.get('/:date', (req,res)=>{
     res.send(day)
 
 });
-app.get('', (req,res)=>{
+app.get('/', (req,res)=>{
     res.send(index.html)
 })
 app.listen(5000, ()=>{
