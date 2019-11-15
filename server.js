@@ -3,16 +3,17 @@ const app = express();
 
 
 
-app.use(express.static('static_files'));
 
 app.get('/:date', (req,res)=>{
 
     var day = req.params.date.slice(0,2);
-    res.send(day)
+    var month = req.params.date.slice(3,5);
+    var year = req.params.date.slice(6,10);
+    res.send(day+month+year)
 
 });
 app.get('/', (req,res)=>{
-    res.send(index.html)
+    res.sendFile(__dirname + "/static_files/index.html")
 })
 app.listen(5000, ()=>{
 

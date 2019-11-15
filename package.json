@@ -6,7 +6,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "express.js": "^1.0.0",
-    "git": "^0.1.5"
+    "git": "^0.1.5",
+    "mongoose": "^5.7.11"
   },
   "devDependencies": {},
   "scripts": {
