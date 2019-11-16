@@ -5,19 +5,67 @@
         <title>
             Reservierungsbuch
         </title>
-        <script type="text/javascript">
-        $(document).ready(()=>{
-            console.log("test");
-        });
-        </script>
+        
+        <style>
+            body{
+                background-color: #71b1c7;
+            }
+            h1{
+                text-align: left;
+            }
+
+            th.ueberschrift{
+                font-style: italic;
+                font-size: larger;
+                letter-spacing: 2px;
+                text-decoration: underline;}
+            td.first-row {
+                font-size: large;
+                letter-spacing: 2px;
+                text-align: center;
+                border: 1px solid black;
+                border-collapse: collapse;}
+            
+            td.customer{
+                text-align: center;
+                
+            }
+
+        </style>
+
     </head>
     <body>
         <h1>
             City Braustüb'l
         </h1>
 
-        Name: <input id="namebox" type="text" size="20"/>
-        Datum: <input id="datumbox" type="text" size="20"/>
-        <button id="commit">Reservieren!</button>
+        <table style="width:50%" class="tg">
+            <tr>
+                <th class="ueberschrift" colspan="6">Reservierungen</th>
+            </tr>
+            <tr>
+                <td class="first-row" width="50">Zeit</td>
+                <td class="first-row" width="160">Name</td>
+                <td class="first-row">PAX</td>
+                <td class="first-row">Tisch</td>
+                <td class="first-row" width="160">Beschreibung</td>
+            </tr>
+            <tr>
+                <td class="customer">18:00</td>
+                <td class="customer">Thomas</td>
+                <td class="customer">7</td>
+                <td class="customer">12</td>
+                <td class="customer">-</td>
+
+            </tr>
+            <tr>
+                    <td class="customer">18:00</td>
+                    <td class="customer">Thomas</td>
+                    <td class="customer">7</td>
+                    <td class="customer">12</td>
+                    <td class="customer">-</td>
+    
+                </tr>
+        </table>
     </body>
 </html>

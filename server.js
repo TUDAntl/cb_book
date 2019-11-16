@@ -3,7 +3,6 @@ const app = express();
 const checkDateRoute = require('./routes/dateChecks');
 const bodyParser = require('body-parser');
 
-
 app.use(bodyParser.json());
 app.use('/check', checkDateRoute);
 
