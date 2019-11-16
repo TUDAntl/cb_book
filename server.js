@@ -1,20 +1,20 @@
 const express = require('express');
 const app = express();
+const checkDateRoute = require('./routes/dateChecks');
+const bodyParser = require('body-parser');
 
 
+app.use(bodyParser.json());
+app.use('/check', checkDateRoute);
 
 
-app.get('/:date', (req,res)=>{
-
-    var day = req.params.date.slice(0,2);
-    var month = req.params.date.slice(3,5);
-    var year = req.params.date.slice(6,10);
-    res.send(day+month+year)
-
-});
+//Startseite
 app.get('/', (req,res)=>{
     res.sendFile(__dirname + "/static_files/index.html")
-})
+});
+
+
+//Start server on port
 app.listen(5000, ()=>{
 
 });
