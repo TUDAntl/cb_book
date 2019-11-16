@@ -4,7 +4,6 @@ var MongoClient = require('mongodb').MongoClient;
 
 
 
-
 router.get('/', (req,res)=>{
     MongoClient.connect("mongodb://Reservierungen",{ useUnifiedTopology: true}, function(err, db) {
         if(!err) {
