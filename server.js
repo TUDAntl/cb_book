@@ -5,7 +5,7 @@ const mainRoute = require('./routes/mainRoute');
 const bodyParser = require('body-parser');
 const exhbs = require('express-handlebars');
 
-app.engine('handlebars', exhbs({root: __dirname+'/views'}));
+app.engine('handlebars', exhbs());
 
 app.set('view engine', 'handlebars');
 app.use(bodyParser.json());

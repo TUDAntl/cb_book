@@ -9,6 +9,6 @@ router.get('/', (req,res)=>{
         if(!err) {
         }
     });
-    res.render('index')});
+    res.render(__dirname.substring(0, __dirname.length-6)+'views/index',{layout: false})});
 
     module.exports = router;
