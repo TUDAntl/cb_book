@@ -1,16 +1,19 @@
 const express = require('express');
 const app = express();
-const checkDateRoute = require('./routes/dateChecks');
+const checkDateRoute = require('./routes/dateRoute');
+const mainRoute = require('./routes/mainRoute');
 const bodyParser = require('body-parser');
+var MongoClient = require('mongodb').MongoClient;
+const exhbs = require('express-handlebars');
 
+
+app.engine('handlebars', exhbs());
+app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
+
+
 app.use('/check', checkDateRoute);
-
-
-//Startseite
-app.get('/', (req,res)=>{
-    res.sendFile(__dirname + "/static_files/index.html")
-});
+app.use('/', mainRoute);
 
 
 //Start server on port
