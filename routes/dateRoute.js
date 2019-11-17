@@ -1,5 +1,4 @@
 const express = require('express');
-const Post = require('../Reservierung')
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 const dbname = String(new Date().getMonth()+1)+'_'+String(new Date().getFullYear())+'.db';
