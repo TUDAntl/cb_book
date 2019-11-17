@@ -1,50 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <title>
-            Reservierungsbuch
-        </title>
-        
-        <style>
-            body{
-                background-color: #71b1c7;
-            }
-            .table-wrapper{
-                margin-top: 100px;
-            }
-            h1{
-                text-align: left;
-            }
 
-            th.ueberschrift{
-                font-style: italic;
-                font-size: larger;
-                letter-spacing: 2px;
-                text-decoration: underline;}
-            td.first-row {
-                font-size: large;
-                letter-spacing: 2px;
-                text-align: center;
-                border: 1px solid black;
-                border-collapse: collapse;}
-            
-            td.customer{
-                text-align: center;
-                
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>
+        Reservierungsbuch
+    </title>
 
-        </style>
+    <style>
+        body {
+            background-color: #71b1c7;
+        }
 
-    </head>
-    <body>
-        <h1>
-            City Braustüb'l
-        </h1>
-  
-        <div class="table-wrapper">
+        .table-wrapper {
+            margin-top: 100px;
+        }
+
+        h1 {
+            text-align: left;
+            text-decoration: underline;
+        }
+
+        th.ueberschrift {
+            font-style: italic;
+            font-size: larger;
+            letter-spacing: 2px;
+            text-decoration: underline;
+        }
+
+        td.first-row {
+            font-size: large;
+            letter-spacing: 2px;
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        td.customer {
+            text-align: center;
+
+        }
+
+        div.form-wrapper {
+            font-size: large;
+            margin-bottom: 20px;
+            margin-top: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>
+        City Braustüb'l
+    </h1>
+
+    <div class="form-wrapper">
+        <form class="addRes" method="POST" action="/check">
+            Datum
+            <input type="text" name="date" /><br>
+            Zeit
+            <input type="text" name="time" /><br>
+            Name
+            <input type="text" name="name" /><br>
+            Pax
+            <input type="number" name="pax" width="20" /><br>
+            Tisch
+            <input type="number" name="tisch" /><br>
+            Beschreibung
+            <input type="text" name="desc" /><br>
+
+            <input type="submit" />
+        </form>
+    </div>
+
+    <div class="table-wrapper">
         <table style="width:60%" class="tg">
             <tr>
                 <th class="ueberschrift" colspan="6">Reservierungen</th>
@@ -56,43 +88,19 @@
                 <td class="first-row">Tisch</td>
                 <td class="first-row" width="160">Beschreibung</td>
             </tr>
+            {{#each allres}}
             <tr>
-                <td class="customer">{{time1}}</td>
-                <td class="customer">{{name1}}</td>
-                <td class="customer">{{pax1}}</td>
-                <td class="customer">{{table1}}</td>
-                <td class="customer">{{description1}}</td>
+                <td class="customer">{{time}}</td>
+                <td class="customer">{{name}}</td>
+                <td class="customer">{{pax}}</td>
+                <td class="customer">{{tisch}}</td>
+                <td class="customer">{{desc}}</td>
+
             </tr>
-            <tr>
-                <td class="customer">{{time2}}</td>
-                <td class="customer">{{name2}}</td>
-                <td class="customer">{{pax2}}</td>
-                <td class="customer">{{table2}}</td>
-                <td class="customer">{{description2}}</td>
-            </tr>
-            <tr>
-                <td class="customer">{{time3}}</td>
-                <td class="customer">{{name3}}</td>
-                <td class="customer">{{pax3}}</td>
-                <td class="customer">{{table3}}</td>
-                <td class="customer">{{description3}}</td>
-            </tr>
-            <tr>
-                <td class="customer">{{time4}}</td>
-                <td class="customer">{{name4}}</td>
-                <td class="customer">{{pax4}}</td>
-                <td class="customer">{{table4}}</td>
-                <td class="customer">{{description4}}</td>
-            </tr>
-            <tr>
-                <td class="customer">{{time5}}</td>
-                <td class="customer">{{name5}}</td>
-                <td class="customer">{{pax5}}</td>
-                <td class="customer">{{table5}}</td>
-                <td class="customer">{{description5}}</td>
-            </tr>
-           
+            {{/each}}
+
         </table>
     </div>
-    </body>
+</body>
+
 </html>
