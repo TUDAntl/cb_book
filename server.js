@@ -17,11 +17,6 @@ let db = new sqlite3.Database(sqlpath,(err)=>{
 });
 db.serialize(()=>{
     db.run( "CREATE TABLE IF NOT EXISTS reservierungen (date INTEGER NOT NULL, time INTEGER NOT NULL, name TEXT PRIMARY KEY NOT NULL, pax INTEGER NOT NULL, tisch INTEGER, desc TEXT) ");
-/**
-    db.run(" INSERT INTO reservierungen Values (17, 1080, 'Thomas', 6, 11, NULL) ");
-    db.run(" INSERT INTO reservierungen Values (18, 1140, 'Lee', 4, 4, 'Geht ins Theater') ");
-    db.run(" INSERT INTO reservierungen Values (17, 1080, 'Tiroler Kreis', 6, 44, NULL) ");
-*/
 });
 
 
