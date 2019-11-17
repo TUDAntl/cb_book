@@ -35,5 +35,5 @@ app.use('/', mainRoute);
 
 //Start server on port
 app.listen(5000, ()=>{
-
+console.log("Started server at port 5000");
 });
