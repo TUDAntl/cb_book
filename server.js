@@ -16,7 +16,7 @@ let db = new sqlite3.Database(sqlpath,(err)=>{
     }
 });
 db.serialize(()=>{
-    db.run( "CREATE TABLE IF NOT EXISTS reservierungen (date INTEGER NOT NULL, time INTEGER NOT NULL, name TEXT PRIMARY KEY NOT NULL, pax INTEGER NOT NULL, tisch INTEGER, desc TEXT) ");
+    db.run( "CREATE TABLE IF NOT EXISTS reservierungen (date INTEGER NOT NULL, time INTEGER NOT NULL, name TEXT NOT NULL, pax INTEGER NOT NULL, tisch INTEGER, desc TEXT) ");
 });
 
 
