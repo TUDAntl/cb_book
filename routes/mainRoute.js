@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
+var today = new Date();
 
+var day = today.getDate();
+var month = today.getMonth();
+var year = today.getFullYear();
 
+var todayRoute = '/check/'+String(day)+'_'+String(month+1)+'_'+String(year)
 
-router.get('/', (req,res)=>{
-    res.render(__dirname.substring(0, __dirname.length-6)+'views/index',{layout: false, title: "Reservierungsbuch", time1:18, name1:"Thomas", pax1:6, table1:11, time1:"18:00", 
-                                                                        name2:"Brunner", pax2:5, table2:4, time2:"20:15", description2:"geht ins Theater"})});
+router.get('/', (req, res) => {
+res.redirect(todayRoute);
 
-    module.exports = router;
+});
+
+module.exports = router;
