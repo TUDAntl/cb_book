@@ -42,7 +42,6 @@
 
         td.customer {
             text-align: center;
-
         }
 
         div.form-wrapper {
@@ -54,7 +53,7 @@
         form.addRes {
             display: none;
         }
-
+        
         .formButton {
             box-shadow: 0px 0px 0px 2px #9fb4f2;
             background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
@@ -98,21 +97,30 @@
         City Braustüb'l
     </h1>
 
-    <button type="button" class="formButton">Hinzufügen</button>
+    
+    <div class="buttonWrapper">
+        <button type="button" class="formButton">Hinzufügen</button>
+    </div>
 
     <div class="form-wrapper">
+        
+        <div class="errorField">
+            {{#if error}}
+            <div>Error!</div>
+            {{/if}}
+        </div>
         <form class="addRes" method="POST" action="/check">
-            Datum
+            Datum(Tag)<br>
             <input type="text" name="date" /><br>
-            Zeit
+            Zeit<br>
             <input type="text" name="time" /><br>
-            Name
+            Name<br>
             <input type="text" name="name" /><br>
-            Pax
+            Pax<br>
             <input type="number" name="pax" width="20" /><br>
-            Tisch
+            Tisch<br>
             <input type="number" name="tisch" /><br>
-            Beschreibung
+            Beschreibung<br>
             <input type="text" name="desc" /><br>
 
             <input type="submit" />
@@ -136,9 +144,11 @@
             <tr>
                 <td class="customer">{{time}}</td>
                 <td class="customer">{{name}}</td>
-                <td class="customer">{{pax}}</td>
-                <td class="customer">{{tisch}}</td>
-                <td class="customer">{{desc}}</td>
+                {{#unless pax}}{{else}}
+                <td class="customer">{{pax}}
+                </td>{{/unless}}{{#unless tisch}}{{else}}
+                <td class="customer">{{tisch}}</td>{{/unless}}{{#unless desc}}{{else}}
+                <td class="customer">{{desc}}</td>{{/unless}}
 
             </tr>
             {{/each}}
