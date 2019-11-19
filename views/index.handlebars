@@ -12,22 +12,29 @@
     </title>
 
     <style>
-        body {
-            background-color: #71b1c7;
+        html {
+            margin: 0px;
+            height: 100%;
+            width: 100%;
         }
+
+        body {
+            margin: 0px;
+            min-height: 100%;
+            width: 100%;
+            background-color: #00818a;
+        }
+
+
 
         .table-wrapper {
             margin-top: 100px;
         }
 
-        h1 {
-            text-align: left;
-            text-decoration: underline;
-        }
-
         th.ueberschrift {
             font-style: italic;
             font-size: larger;
+
             letter-spacing: 2px;
             text-decoration: underline;
         }
@@ -36,8 +43,10 @@
             font-size: large;
             letter-spacing: 2px;
             text-align: center;
-            border: 1px solid black;
+            text-decoration: underline;
             border-collapse: collapse;
+            background: #d7c79e;
+            padding: 2px;
         }
 
         td.customer {
@@ -52,9 +61,16 @@
 
         form.addRes {
             display: none;
+            font-size: 20px;
         }
-        
-        .formButton {
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #optionButton1 {
+            align-self: center;
+            width: 80%;
             box-shadow: 0px 0px 0px 2px #9fb4f2;
             background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
             background-color: #7892c2;
@@ -64,20 +80,93 @@
             cursor: pointer;
             color: #ffffff;
             font-family: Arial;
-            font-size: 19px;
-            padding: 6px 32px;
+            font-size: 10px;
             text-decoration: none;
             text-shadow: 0px 1px 0px #283966;
         }
 
-        .formButton:hover {
+        #optionButton2 {
+            align-self: center;
+            width: 80%;
+            box-shadow: 0px 0px 0px 2px #9fb4f2;
+            background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+            background-color: #7892c2;
+            border-radius: 10px;
+            border: 1px solid #4e6096;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 10px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #283966;
+        }
+
+        #optionButton1:hover,
+        #optionButton2:hover {
             background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
             background-color: #476e9e;
         }
 
-        .formButton:active {
+        #optionButton1:active,
+        #optionButton2:active {
             position: relative;
             top: 1px;
+        }
+
+        div.middle {
+            padding: 10px;
+            border-style: solid;
+            border: 2xp solid black;
+            overflow: hidden;
+        }
+
+        div.left {
+            display: inline-block;
+            width: 50%;
+            overflow: hidden;
+            float: left;
+        }
+
+        div.right {
+            display: inline-block;
+            width: 50%;
+            float: right;
+        }
+
+        div.btn1 {
+            padding: 2px;
+        }
+
+        div.btn2 {
+            padding: 2px;
+        }
+
+        div.head {
+            color: #d4e9eb;
+            width: 100vw;
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 0px;
+            border-top: 0px;
+            background-color: #293462;
+            background: linear-gradient(to bottom, #293462 5%, #4a578b 100%);
+        }
+
+        .tg tr:nth-child(odd) {
+            width: 100%;
+            margin-top: 10px;
+            background: #9fb4f2;
+        }
+
+        .tg {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .table {
+            background: #d7c79e;
+            padding: 10px;
+            margin-top: 10px;
         }
     </style>
 
@@ -93,45 +182,45 @@
             });
         });
     </script>
-    <h1>
-        City Braustüb'l
-    </h1>
 
-    
-    <div class="buttonWrapper">
-        <button type="button" class="formButton">Hinzufügen</button>
+    <div class="head">
+        <h1>
+            City Braustüb'l
+        </h1>
     </div>
-
-    <div class="form-wrapper">
-        
-        <div class="errorField">
-            {{#if error}}
-            <div>Error!</div>
-            {{/if}}
+    <div class="middle">
+        <div class="left">
+            <div class="btn1">
+                <button type="button" id="optionButton1" class="formButton">Hinzufügen</button></div><br>
+            <div class="btn2">
+                <button type="button" id="optionButton2" class="inspectDay">Tag Anschauen</button></div>
         </div>
-        <form class="addRes" method="POST" action="/check">
-            Datum(Tag)<br>
-            <input type="text" name="date" /><br>
-            Zeit<br>
-            <input type="text" name="time" /><br>
-            Name<br>
-            <input type="text" name="name" /><br>
-            Pax<br>
-            <input type="number" name="pax" width="20" /><br>
-            Tisch<br>
-            <input type="number" name="tisch" /><br>
-            Beschreibung<br>
-            <input type="text" name="desc" /><br>
+        <div class="right">
+            <div class="errorField">
+                {{#if error}}
+                <div>Error!</div>
+                {{/if}}
+            </div>
+            <form class="addRes" method="POST" action="/check">
+                Zeit<br>
+                <input type="text" name="time" /><br>
+                Name<br>
+                <input type="text" name="name" /><br>
+                Pax<br>
+                <input type="number" name="pax" width="20" /><br>
+                Tisch<br>
+                <input type="number" name="tisch" /><br>
+                Beschreibung<br>
+                <input type="text" name="desc" /><br>
 
-            <input type="submit" />
-        </form>
+                <input type="submit" />
+            </form>
+        </div>
     </div>
-
-
-    <div class="table-wrapper">
-        <table style="width:60%" class="tg">
+    <div class="table">
+        <table class="tg">
             <tr>
-                <th class="ueberschrift" colspan="6">Reservierungen</th>
+                <th class="ueberschrift" style="padding:10px" colspan="6">Reservierungen</th>
             </tr>
             <tr>
                 <td class="first-row" width="50">Zeit</td>
@@ -140,6 +229,8 @@
                 <td class="first-row">Tisch</td>
                 <td class="first-row" width="160">Beschreibung</td>
             </tr>
+             <tr style="background: #d7c79e;"><td><br></td></tr>
+             <tr style="background: #d7c79e;"><td><br></td></tr>
             {{#each allres}}
             <tr>
                 <td class="customer">{{time}}</td>

@@ -23,14 +23,22 @@ router.get('/:date', async (req, res) => {
         }
     });
     reservierungen = [];
+    
+
+    
     db.serialize(() => {
         db.each("SELECT time, name, pax,tisch, desc FROM reservierungen " + whereStatement, (err, row) => {
             var res = { date: day, time: row.time, name: row.name, pax: row.pax, tisch: row.tisch, desc: row.desc };
             reservierungen.push(res);
         });
     });
-    await sleep(500);
 
+    
+    await sleep(500);
+    reservierungen.sort(function(a, b) {
+        return a.time - b.time;
+    });
+    reservierungen.sort();
     console.log(reservierungen);
     db.close();
     var jdata = { layout: false, title: "Reservierungsbuch", allres: reservierungen, error: terror };
@@ -40,6 +48,10 @@ router.get('/:date', async (req, res) => {
 
 
 router.post('/', (req, res) => {
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth();
+    var year = today.getFullYear();
     terror = false;
     let db = new sqlite3.Database(sqlpath, (err) => {
         if (err) {
@@ -49,9 +61,9 @@ router.post('/', (req, res) => {
     });
     var parsedDesc, parsedPax, parsedTisch;
     if (req.body.desc == ""){
-        parsedDesc = " ";
+        parsedDesc = "-";
     }else{
-        parsedDesc = req.body.desc;
+        parsedDesc = String(req.body.desc);
     }
     if (req.body.pax == ""){
         parsedPax = "0";
@@ -63,19 +75,16 @@ router.post('/', (req, res) => {
     }else{
         parsedTisch = String(req.body.tisch);
     }
-    if (req.body.date == "" || req.body.time == "" || req.body.name == "") {
+    if ( req.body.time == "" || req.body.name == "") {
         terror = true;
 
     } else {
         var sqlcommand = " INSERT INTO reservierungen Values";
-        var values = '(' + String(req.body.date) + ',' + String(req.body.time) + ',"' + String(req.body.name) + '",' + parsedPax + ',' + parsedTisch + ',' + '"' + parsedDesc + '" )';
+        var values = '(' + String(day) + ',' + String(req.body.time) + ',"' + String(req.body.name) + '",' + parsedPax + ',' + parsedTisch + ',' + '"' + parsedDesc + '" )';
         console.log(sqlcommand, values);
         db.run(sqlcommand + values);
     }
-    var today = new Date();
-    var day = today.getDate();
-    var month = today.getMonth();
-    var year = today.getFullYear();
+    
 
     var todayRoute = '/check/' + String(day) + '_' + String(month + 1) + '_' + String(year)
     data = { error: terror };
