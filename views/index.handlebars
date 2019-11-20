@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -141,7 +141,7 @@
             padding: 2px;
         }
 
-        div.head {
+        .head {
             color: #d4e9eb;
             width: 100vw;
             text-align: center;
@@ -151,7 +151,10 @@
             background-color: #293462;
             background: linear-gradient(to bottom, #293462 5%, #4a578b 100%);
         }
-
+        .ahead{
+            text-decoration: none;
+            color:#d7c79e;
+        }
         .tg tr:nth-child(odd) {
             width: 100%;
             margin-top: 10px;
@@ -168,12 +171,15 @@
             padding: 10px;
             margin-top: 10px;
         }
+
+        .timeField {
+            width: 15%;
+            font-size: large;
+        }
+        .lookUp{
+            display: none;
+        }
     </style>
-
-</head>
-
-<body>
-
     <script>
         $(function () {
 
@@ -181,12 +187,26 @@
                 $(".addRes").toggle();
             });
         });
+        $(function () {
+
+            $(".inspectDay").click(function () {
+                $(".lookUp").toggle();
+            });
+        });
+        $(".head").click(function(){
+
+        })
     </script>
+</head>
+
+<body>
+
+
 
     <div class="head">
-        <h1>
+        <h1><a class="ahead" href="/">
             City Braustüb'l
-        </h1>
+        </a></h1>
     </div>
     <div class="middle">
         <div class="left">
@@ -201,15 +221,25 @@
                 <div>Error!</div>
                 {{/if}}
             </div>
+
+            <form class="lookUp" method="POST" accept="/check">
+            Zeit<br>
+                <input type="date" class="dateField" name="date"  required>
+                <br><input type="submit" /><br>
+            </form>
+
+
             <form class="addRes" method="POST" action="/check">
                 Zeit<br>
-                <input type="text" name="time" /><br>
-                Name<br>
-                <input type="text" name="name" /><br>
+                <input type="time" class="timeField" name="time" min="09:00" max="18:00" step="900" required>
+                <br>
+                <div class="test">
+                Name</div><br>
+                <input type="text" class="nameField" name="name" /><br>
                 Pax<br>
-                <input type="number" name="pax" width="20" /><br>
+                <input type="number" class="paxField" name="pax" width="20" /><br>
                 Tisch<br>
-                <input type="number" name="tisch" /><br>
+                <input type="number" class="tischField" name="tisch" /><br>
                 Beschreibung<br>
                 <input type="text" name="desc" /><br>
 
@@ -217,6 +247,8 @@
             </form>
         </div>
     </div>
+
+
     <div class="table">
         <table class="tg">
             <tr>
@@ -229,8 +261,12 @@
                 <td class="first-row">Tisch</td>
                 <td class="first-row" width="160">Beschreibung</td>
             </tr>
-             <tr style="background: #d7c79e;"><td><br></td></tr>
-             <tr style="background: #d7c79e;"><td><br></td></tr>
+            <tr style="background: #d7c79e;">
+                <td><br></td>
+            </tr>
+            <tr style="background: #d7c79e;">
+                <td><br></td>
+            </tr>
             {{#each allres}}
             <tr>
                 <td class="customer">{{time}}</td>

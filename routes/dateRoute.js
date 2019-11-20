@@ -23,9 +23,9 @@ router.get('/:date', async (req, res) => {
         }
     });
     reservierungen = [];
-    
 
-    
+
+
     db.serialize(() => {
         db.each("SELECT time, name, pax,tisch, desc FROM reservierungen " + whereStatement, (err, row) => {
             var res = { date: day, time: row.time, name: row.name, pax: row.pax, tisch: row.tisch, desc: row.desc };
@@ -33,19 +33,26 @@ router.get('/:date', async (req, res) => {
         });
     });
 
-    
+
     await sleep(500);
-    reservierungen.sort(function(a, b) {
+    reservierungen.sort(function (a, b) {
         return a.time - b.time;
     });
     reservierungen.sort();
-    console.log(reservierungen);
     db.close();
     var jdata = { layout: false, title: "Reservierungsbuch", allres: reservierungen, error: terror };
     res.render(__dirname.substring(0, __dirname.length - 6) + 'views/index', jdata);
 
 });
 
+router.post('/:date', (req,res)=>{
+var day = req.body.date.slice(8);
+var month = req.body.date.slice(5,7);
+var year = req.body.date.slice(0,4);
+
+var pRoute = '/check/' + day + '_' + month + '_' + year;
+res.redirect(pRoute);
+});
 
 router.post('/', (req, res) => {
     var today = new Date();
@@ -59,36 +66,43 @@ router.post('/', (req, res) => {
             return console.error(err.message);
         }
     });
-    var parsedDesc, parsedPax, parsedTisch;
-    if (req.body.desc == ""){
+    var parsedDesc, parsedPax, parsedTisch, parsedTime;
+    if (req.body.desc == "") {
         parsedDesc = "-";
-    }else{
+    } else {
         parsedDesc = String(req.body.desc);
     }
-    if (req.body.pax == ""){
+    if (req.body.pax == "") {
         parsedPax = "0";
-    }else{
+    } else {
         parsedPax = String(req.body.pax);
     }
-    if (req.body.tisch == ""){
+    if (req.body.tisch == "") {
         parsedTisch = "0";
-    }else{
+    } else {
         parsedTisch = String(req.body.tisch);
     }
-    if ( req.body.time == "" || req.body.name == "") {
+    if (req.body.time == "" || req.body.name == "") {
         terror = true;
 
     } else {
+        parsedTimeRaw = String(req.body.time);
+        parsedHour = parsedTimeRaw.slice(0, 2);
+        parsedMinute = parsedTimeRaw.slice(3, 6);
+        if (parsedMinute.length == 1) {
+            parsedMinute = "0" + parsedMinute;
+        }
+        parsedTime = parsedHour + parsedMinute;
         var sqlcommand = " INSERT INTO reservierungen Values";
-        var values = '(' + String(day) + ',' + String(req.body.time) + ',"' + String(req.body.name) + '",' + parsedPax + ',' + parsedTisch + ',' + '"' + parsedDesc + '" )';
+        var values = '(' + String(day) + ',' + parsedTime + ',"' + String(req.body.name) + '",' + parsedPax + ',' + parsedTisch + ',' + '"' + parsedDesc + '" )';
         console.log(sqlcommand, values);
         db.run(sqlcommand + values);
     }
-    
-
     var todayRoute = '/check/' + String(day) + '_' + String(month + 1) + '_' + String(year)
     data = { error: terror };
     res.redirect(todayRoute);
+
+
 });
 
 module.exports = router;
