@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const checkDateRoute = require('./routes/dateRoute');
 const mainRoute = require('./routes/mainRoute');
+const editRoute = require('./routes/editRoute');
 const bodyParser = require('body-parser');
 const exhbs = require('express-handlebars');
 const sqlite3 = require('sqlite3').verbose();
@@ -16,7 +17,7 @@ let db = new sqlite3.Database(sqlpath,(err)=>{
     }
 });
 db.serialize(()=>{
-    db.run( "CREATE TABLE IF NOT EXISTS reservierungen (date INTEGER NOT NULL, time INTEGER NOT NULL, name TEXT NOT NULL, pax INTEGER NOT NULL, tisch INTEGER, desc TEXT) ");
+    db.run( "CREATE TABLE IF NOT EXISTS reservierungen (date INTEGER NOT NULL, time INTEGER NOT NULL, name TEXT NOT NULL, pax INTEGER NOT NULL, tisch INTEGER, desc TEXT, id TEXT PRIMARY KEY) ");
 });
 
 
@@ -29,7 +30,7 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use('/check', checkDateRoute);
 app.use('/', mainRoute);
-
+app.use('/edit', editRoute);
 
 
 

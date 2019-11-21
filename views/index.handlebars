@@ -70,7 +70,7 @@
 
         #optionButton1 {
             align-self: center;
-            width: 80%;
+            width: 50%;
             box-shadow: 0px 0px 0px 2px #9fb4f2;
             background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
             background-color: #7892c2;
@@ -87,7 +87,23 @@
 
         #optionButton2 {
             align-self: center;
-            width: 80%;
+            width: 50%;
+            box-shadow: 0px 0px 0px 2px #9fb4f2;
+            background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+            background-color: #7892c2;
+            border-radius: 10px;
+            border: 1px solid #4e6096;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 10px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #283966;
+        }
+
+        #optionButton3 {
+            align-self: center;
+            width: 20%;
             box-shadow: 0px 0px 0px 2px #9fb4f2;
             background: linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
             background-color: #7892c2;
@@ -102,13 +118,15 @@
         }
 
         #optionButton1:hover,
-        #optionButton2:hover {
+        #optionButton2:hover,
+        #optionButton3:hover {
             background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
             background-color: #476e9e;
         }
 
         #optionButton1:active,
-        #optionButton2:active {
+        #optionButton2:active,
+        #optionButton3:active {
             position: relative;
             top: 1px;
         }
@@ -151,10 +169,12 @@
             background-color: #293462;
             background: linear-gradient(to bottom, #293462 5%, #4a578b 100%);
         }
-        .ahead{
+
+        .ahead {
             text-decoration: none;
-            color:#d7c79e;
+            color: #d7c79e;
         }
+
         .tg tr:nth-child(odd) {
             width: 100%;
             margin-top: 10px;
@@ -176,27 +196,30 @@
             width: 15%;
             font-size: large;
         }
-        .lookUp{
+
+        .lookUp {
             display: none;
         }
     </style>
+
     <script>
         $(function () {
-
             $(".formButton").click(function () {
                 $(".addRes").toggle();
+                $(".lookUp").hide();
             });
         });
-        $(function () {
 
+        $(function () {
             $(".inspectDay").click(function () {
                 $(".lookUp").toggle();
+                $(".addRes").hide();
             });
         });
-        $(".head").click(function(){
 
-        })
+
     </script>
+    
 </head>
 
 <body>
@@ -205,9 +228,19 @@
 
     <div class="head">
         <h1><a class="ahead" href="/">
-            City Braustüb'l
-        </a></h1>
+                City Braustüb'l
+            </a></h1><h3><p id="date"></p></h3>
+        
+        <script>
+        n = new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            document.getElementById("date").innerHTML = d + "." + m + "." + y;
+        </script>
     </div>
+
+
     <div class="middle">
         <div class="left">
             <div class="btn1">
@@ -223,8 +256,8 @@
             </div>
 
             <form class="lookUp" method="POST" accept="/check">
-            Zeit<br>
-                <input type="date" class="dateField" name="date"  required>
+                Zeit<br>
+                <input type="date" class="dateField" name="date" required>
                 <br><input type="submit" /><br>
             </form>
 
@@ -234,7 +267,7 @@
                 <input type="time" class="timeField" name="time" min="11:00" max="23:30" step="900" required>
                 <br>
                 <div class="test">
-                Name</div><br>
+                    Name</div>
                 <input type="text" class="nameField" name="name" /><br>
                 Pax<br>
                 <input type="number" class="paxField" name="pax" width="20" /><br>
@@ -252,7 +285,9 @@
     <div class="table">
         <table class="tg">
             <tr>
-                <th class="ueberschrift" style="padding:10px" colspan="6">Reservierungen</th>
+                <th class="ueberschrift" style="padding:10px" colspan="6">Reservierungen<div class="btn1">
+                        <button type="button" id="optionButton3" class="editButton">Bearbeiten</button></div>
+                </th>
             </tr>
             <tr>
                 <td class="first-row" width="50">Zeit</td>
@@ -270,18 +305,26 @@
             {{#each allres}}
             <tr>
                 <td class="customer">{{time}}</td>
+
                 <td class="customer">{{name}}</td>
-                {{#unless pax}}{{else}}
-                <td class="customer">{{pax}}
-                </td>{{/unless}}{{#unless tisch}}{{else}}
-                <td class="customer">{{tisch}}</td>{{/unless}}{{#unless desc}}{{else}}
-                <td class="customer">{{desc}}</td>{{/unless}}
+
+                {{#unless pax}}<td class="customer">-</td>{{else}}
+                <td class="customer">{{pax}}</td>{{/unless}}
+                
+                {{#unless tisch}}<td class="customer">-</td>{{else}}
+                <td class="customer">{{tisch}}</td>{{/unless}}
+
+                {{#unless desc}}<td class="customer">-</td>{{else}}
+                <td class="customer"><a class="descText" href='/edit/{{id}}'>{{desc}}</a></td>{{/unless}}
 
             </tr>
             {{/each}}
 
         </table>
     </div>
+
+
+
 </body>
 
 </html>

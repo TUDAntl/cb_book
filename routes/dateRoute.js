@@ -23,12 +23,9 @@ router.get('/:date', async (req, res) => {
         }
     });
     reservierungen = [];
-
-
-
     db.serialize(() => {
-        db.each("SELECT time, name, pax,tisch, desc FROM reservierungen " + whereStatement, (err, row) => {
-            var res = { date: day, time: row.time, name: row.name, pax: row.pax, tisch: row.tisch, desc: row.desc };
+        db.each("SELECT time, name, pax, tisch, desc, id FROM reservierungen " + whereStatement, (err, row) => {
+            var res = { date: day, time: row.time, name: row.name, pax: row.pax, tisch: row.tisch, desc: row.desc, id:row.id};
             reservierungen.push(res);
         });
     });
@@ -44,6 +41,8 @@ router.get('/:date', async (req, res) => {
     res.render(__dirname.substring(0, __dirname.length - 6) + 'views/index', jdata);
 
 });
+
+
 
 router.post('/:date', (req,res)=>{
 var day = req.body.date.slice(8);
@@ -94,7 +93,8 @@ router.post('/', (req, res) => {
         }
         parsedTime = parsedHour + parsedMinute;
         var sqlcommand = " INSERT INTO reservierungen Values";
-        var values = '(' + String(day) + ',' + parsedTime + ',"' + String(req.body.name) + '",' + parsedPax + ',' + parsedTisch + ',' + '"' + parsedDesc + '" )';
+        var ID =  Math.random().toString(36).substr(2, 9);
+        var values = '(' + String(day) + ',' + parsedTime + ',"' + String(req.body.name) + '",' + parsedPax + ',' + parsedTisch + ',' + '"' + parsedDesc + '","'+ String(ID)+'" )';
         console.log(sqlcommand, values);
         db.run(sqlcommand + values);
     }
