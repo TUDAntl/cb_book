@@ -41,14 +41,17 @@
             padding: 10px;
             margin-top: 10px;
         }
+
         #optionButton3:active {
             position: relative;
             top: 1px;
         }
+
         #optionButton3:hover {
             background: linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
             background-color: #476e9e;
         }
+
         #optionButton3 {
             align-self: center;
             width: 20%;
@@ -64,10 +67,12 @@
             text-decoration: none;
             text-shadow: 0px 1px 0px #283966;
         }
+
         .ahead {
             text-decoration: none;
             color: #d7c79e;
         }
+
         .head {
             color: #d4e9eb;
             width: 100vw;
@@ -78,6 +83,12 @@
             background-color: #293462;
             background: linear-gradient(to bottom, #293462 5%, #4a578b 100%);
         }
+        .editInput{
+            
+        }
+        .addRes{
+            padding:20px;
+        }
     </style>
 </head>
 
@@ -85,10 +96,13 @@
     <div class="head">
         <h1><a class="ahead" href="/">
                 City Braustüb'l
-            </a></h1><h3><p id="date"></p></h3>
-        
+            </a></h1>
+        <h3>
+            <p id="date"></p>
+        </h3>
+
         <script>
-        n = new Date();
+            n = new Date();
             y = n.getFullYear();
             m = n.getMonth() + 1;
             d = n.getDate();
@@ -99,15 +113,15 @@
         <table class="tg">
             <tr>
                 <th class="ueberschrift" style="padding:10px" colspan="6">Reservierungen<div class="btn1">
-                        <button type="button" id="optionButton3" class="editButton">Bearbeiten</button></div>
+                        <button type="button" id="optionButton3" class="editButton">Ändern</button></div>
                 </th>
             </tr>
             <tr>
-                <td class="first-row" width="50">Zeit</td>
-                <td class="first-row" width="160">Name</td>
-                <td class="first-row">PAX</td>
-                <td class="first-row">Tisch</td>
-                <td class="first-row" width="160">Beschreibung</td>
+                <td class="first-row" width="50"><input style="font-size:15px" type="time" class="timeField" name="time" min="11:00" max="23:30" step="900" required></td>
+                <td class="first-row" width="160"><input type="text" class="nameField" name="name" /></td>
+                <td class="first-row"> <input type="number" class="paxField" name="pax" width="20" /></td>
+                <td class="first-row"> <input type="number" class="tischField" name="tisch" /></td>
+                <td class="first-row" width="160"><input type="text" name="desc" /></td>
             </tr>
             <tr style="background: #d7c79e;">
                 <td><br></td>
@@ -132,10 +146,9 @@
 
             </tr>
             {{/each}}
-
         </table>
     </div>
-
+    
 </body>
 
 </html>

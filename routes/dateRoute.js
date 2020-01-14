@@ -37,7 +37,7 @@ router.get('/:date', async (req, res) => {
     });
     reservierungen.sort();
     db.close();
-    var jdata = { layout: false, title: "Reservierungsbuch", allres: reservierungen, error: terror };
+    var jdata = { layout: false, title: "Reservierungsbuch", allres: reservierungen, error: terror, day: day, month: month, year: year };
     res.render(__dirname.substring(0, __dirname.length - 6) + 'views/index', jdata);
 
 });
